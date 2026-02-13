@@ -18,9 +18,11 @@ app.use(cors({
 }));
 
 // Storage config
+const UPLOAD_DIR = process.env.UPLOAD_DIR || path.join(__dirname, "uploads");
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, path.join(__dirname, "uploads"));
+        cb(null, UPLOAD_DIR);
     },
     filename: (req, file, cb) => {
         const unique = Date.now() + "-" + Math.round(Math.random() * 1e9);
@@ -39,7 +41,7 @@ const upload = multer({
 app.use(express.json());
 
 // Serve uploaded files
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/uploads", express.static(UPLOAD_DIR));
 
 // Test route
 app.get("/", (req, res) => {
@@ -61,7 +63,7 @@ app.delete("/delete-file", (req, res) => {
     const filename = req.query.name;
     if (!filename) return res.status(400).json({ error: "Missing filename" });
 
-    const filePath = path.join(__dirname, "uploads", filename);
+    const filePath = path.join(UPLOAD_DIR, filename);
 
     fs.unlink(filePath, (err) => {
         if (err) {
