@@ -17,8 +17,8 @@ app.use(cors({
     allowedHeaders: ["Content-Type"]
 }));
 
-// Storage config
-const UPLOAD_DIR = process.env.UPLOAD_DIR || path.join(__dirname, "uploads");
+// Storage config (Render version)
+const UPLOAD_DIR = path.join(__dirname, "uploads");
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
