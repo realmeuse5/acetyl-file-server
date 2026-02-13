@@ -9,7 +9,7 @@ const PORT = 3000;
 const cors = require("cors");
 app.use(cors({
     origin: [
-        "http://127.0.0.1:3001",
+        "http://127.0.0.1:3000",
         "https://realmeuse5.github.io",
         "https://acetyl-client.onrender.com"
     ],
